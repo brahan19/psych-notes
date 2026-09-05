@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Feelings check-in</title>
+<style>
+  :root {
+    --bg: #1B2321;
+    --surface: #232C29;
+    --border: #2E3A35;
+    --border-strong: #3C4A44;
+    --text: #EDEAE1;
+    --muted: #9BA79E;
+    --faint: #6B7671;
+    --accent: #C97B84;
+    --danger: #C2564B;
+    --good: #7FA084;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: radial-gradient(circle at 50% -10%, #1F2C29, #0F1513 70%);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    color: var(--text);
+    display: flex;
+    justify-content: center;
+    padding: 32px 16px;
+  }
+  .card { width: 100%; max-width: 420px; background: var(--bg); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
+  .header { display: flex; justify-content: space-between; align-items: flex-start; padding: 20px 20px 16px; border-bottom: 1px solid var(--border); }
+  .header .date { font-size: 12px; color: var(--muted); letter-spacing: 0.02em; }
+  .header h1 { font-family: Georgia, serif; font-weight: 400; font-size: 18px; margin: 4px 0 0; }
+  .streak { text-align: right; }
+  .streak .num { font-size: 18px; color: var(--accent); line-height: 1; }
+  .streak .label { font-size: 11px; color: var(--muted); margin-top: 3px; }
+  .body { padding: 20px; min-height: 300px; }
+  .hint { font-size: 13px; color: var(--muted); margin: 0 0 12px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .core-btn { border: none; border-radius: 12px; padding: 16px; text-align: left; font-size: 14px; cursor: pointer; }
+  .pill { border-radius: 999px; padding: 7px 14px; font-size: 14px; background: var(--surface); border: 1px solid var(--border-strong); color: var(--text); cursor: pointer; }
+  .pillwrap { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+  .crumbs { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); margin-bottom: 12px; flex-wrap: wrap; }
+  .crumbs button { background: none; border: none; color: var(--accent); font-size: 12px; cursor: pointer; padding: 0; }
+  .link-btn { background: none; border: none; color: var(--muted); font-size: 12px; text-decoration: underline; cursor: pointer; padding: 0; }
+  .saved { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 32px 0; }
+  .checkmark { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; font-size: 22px; }
+  .saved .small { font-size: 13px; color: var(--muted); }
+  .saved .path { font-family: Georgia, serif; font-size: 18px; margin-top: 4px; }
+  .again-btn { margin-top: 24px; padding: 8px 16px; border-radius: 999px; border: 1px solid var(--border-strong); background: none; color: var(--text); font-size: 13px; cursor: pointer; }
+  .tabs { display: grid; grid-template-columns: 1fr 1fr 1fr; border-top: 1px solid var(--border); }
+  .tab { padding: 12px; font-size: 14px; text-align: center; border: none; cursor: pointer; background: transparent; color: var(--faint); }
+  .tab.active { background: var(--surface); color: var(--text); }
+  .bars { display: flex; align-items: flex-end; gap: 6px; height: 56px; margin-bottom: 24px; }
+  .bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 4px; }
+  .bar { width: 100%; border-radius: 3px; }
+  .bar-count { font-size: 10px; color: var(--muted); }
+  .day-label { font-size: 12px; color: var(--muted); margin: 0 0 6px; }
+  .entry-row { display: flex; align-items: center; justify-content: space-between; background: var(--surface); border-radius: 10px; padding: 8px 12px; margin-bottom: 6px; }
+  .entry-left { display: flex; align-items: center; gap: 8px; min-width: 0; }
+  .dot { width: 8px; height: 8px; border-radius: 999px; flex-shrink: 0; }
+  .entry-text { font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .entry-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; padding-left: 8px; }
+  .entry-time { font-size: 11px; color: var(--muted); }
+  .del-btn { background: none; border: none; color: var(--faint); cursor: pointer; font-size: 12px; }
+  .empty { font-size: 13px; color: var(--muted); text-align: center; padding: 40px 0; }
+  .history-scroll { max-height: 320px; overflow-y: auto; padding-right: 2px; }
+  .error { font-size: 12px; color: var(--danger); margin-top: 12px; }
+  .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 16px; }
+  .stat-card { background: var(--surface); border-radius: 8px; padding: 10px 6px; text-align: center; }
+  .stat-val { font-size: 16px; color: var(--accent); line-height: 1; }
+  .stat-label { font-size: 10px; color: var(--muted); margin-top: 6px; line-height: 1.2; }
+  .win-row { display: flex; gap: 6px; margin-bottom: 16px; }
+  .win-btn { padding: 4px 10px; border-radius: 999px; font-size: 12px; border: 1px solid var(--border-strong); background: var(--surface); color: var(--muted); cursor: pointer; }
+  .win-btn.active { background: var(--accent); color: #2A1518; }
+  .dist-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .dist-label { font-size: 12px; width: 64px; flex-shrink: 0; }
+  .dist-track { flex: 1; background: var(--surface); border-radius: 999px; height: 8px; overflow: hidden; }
+  .dist-fill { height: 100%; }
+  .dist-num { font-size: 12px; color: var(--muted); width: 56px; text-align: right; flex-shrink: 0; }
+  .highlight-card { background: var(--surface); border-radius: 8px; padding: 10px 12px; margin-bottom: 20px; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+  .word-row { display: flex; align-items: center; gap: 6px; font-size: 12px; margin-bottom: 4px; }
+  .word-row .dot { width: 6px; height: 6px; }
+  .word-row span:nth-child(2) { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .word-row span:nth-child(3) { color: var(--faint); }
+  .wow-row { display: flex; align-items: center; justify-content: space-between; font-size: 12px; padding: 4px 0; }
+  .wow-row .left { display: flex; align-items: center; gap: 6px; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="header">
+    <div>
+      <p class="date" id="todayDate"></p>
+      <h1>How are you, really?</h1>
+    </div>
+    <div class="streak" id="streakBox"></div>
+  </div>
+  <div class="body" id="bodyEl"></div>
+  <div class="tabs">
+    <button class="tab active" id="tabCheckin">Check in</button>
+    <button class="tab" id="tabHistory">History</button>
+    <button class="tab" id="tabInsights">Insights</button>
+  </div>
+</div>
+
+<script>
+const WHEEL = [
+  { key: "happy", label: "Happy", color: "#E8C547", text: "#4A3D0A",
+    middles: { Playful: ["Aroused","Cheeky"], Content: ["Free","Joyful"], Interested: ["Curious","Inquisitive"],
+      Proud: ["Successful","Confident"], Accepted: ["Respected","Valued"], Powerful: ["Courageous","Creative"],
+      Peaceful: ["Loving","Thankful"], Trusting: ["Sensitive","Intimate"], Optimistic: ["Hopeful","Inspired"] } },
+  { key: "surprised", label: "Surprised", color: "#9B87B0", text: "#2E2438",
+    middles: { Startled: ["Shocked","Dismayed"], Confused: ["Disillusioned","Perplexed"], Amazed: ["Astonished","Awe"], Excited: ["Eager","Energetic"] } },
+  { key: "bad", label: "Bad", color: "#7FA084", text: "#1F2E22",
+    middles: { Bored: ["Indifferent","Apathetic"], Busy: ["Pressured","Rushed"], Stressed: ["Overwhelmed","Out of control"], Tired: ["Sleepy","Unfocused"] } },
+  { key: "fearful", label: "Fearful", color: "#D4A574", text: "#3D2B12",
+    middles: { Scared: ["Helpless","Frightened"], Anxious: ["Overwhelmed","Worried"], Insecure: ["Inadequate","Inferior"],
+      Weak: ["Worthless","Insignificant"], Rejected: ["Excluded","Persecuted"], Threatened: ["Nervous","Exposed"] } },
+  { key: "angry", label: "Angry", color: "#C2564B", text: "#3A0E09",
+    middles: { "Let down": ["Betrayed","Resentful"], Humiliated: ["Disrespected","Ridiculed"], Bitter: ["Indignant","Violated"],
+      Mad: ["Furious","Jealous"], Aggressive: ["Provoked","Hostile"], Frustrated: ["Infuriated","Annoyed"],
+      Distant: ["Withdrawn","Numb"], Critical: ["Sceptical","Dismissive"] } },
+  { key: "disgusted", label: "Disgusted", color: "#7C8570", text: "#22261D",
+    middles: { Disapproving: ["Judgemental","Embarrassed"], Disappointed: ["Appalled","Revolted"], Awful: ["Nauseated","Detestable"], Repelled: ["Horrified","Hesitant"] } },
+  { key: "sad", label: "Sad", color: "#5B84B1", text: "#0F2338",
+    middles: { Lonely: ["Isolated","Abandoned"], Vulnerable: ["Victimised","Fragile"], Despair: ["Grief","Powerless"],
+      Guilty: ["Ashamed","Remorseful"], Depressed: ["Empty","Inferior"], Hurt: ["Disappointed","Embarrassed"] } },
+];
+
+const STORAGE_KEY = "feelings-checkin-entries";
+const WINDOWS = [ { label: "7d", days: 7 }, { label: "30d", days: 30 }, { label: "90d", days: 90 }, { label: "All", days: null } ];
+
+let entries = [];
+try { entries = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"); } catch (e) { entries = []; }
+
+let tab = "checkin";
+let core = null;
+let middle = null;
+let justSaved = null;
+let windowDays = 30;
+
+function persist() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(entries)); }
+  catch (e) { document.getElementById("bodyEl").insertAdjacentHTML("beforeend", '<p class="error">Could not save locally. Your browser storage may be full or blocked.</p>'); }
+}
+
+function dayKey(iso) { return new Date(iso).toDateString(); }
+
+function computeStreak() {
+  if (entries.length === 0) return 0;
+  const days = new Set(entries.map(e => dayKey(e.date)));
+  let streak = 0;
+  let cursor = new Date();
+  if (!days.has(cursor.toDateString())) {
+    cursor.setDate(cursor.getDate() - 1);
+    if (!days.has(cursor.toDateString())) return 0;
+  }
+  while (days.has(cursor.toDateString())) { streak += 1; cursor.setDate(cursor.getDate() - 1); }
+  return streak;
+}
+
+function computeLongestStreak() {
+  if (entries.length === 0) return 0;
+  const daySet = new Set(entries.map(e => new Date(e.date).setHours(0,0,0,0)));
+  const days = Array.from(daySet).sort((a,b) => a-b);
+  let longest = 1, current = 1;
+  for (let i = 1; i < days.length; i++) {
+    if (days[i] - days[i-1] === 86400000) { current += 1; longest = Math.max(longest, current); }
+    else current = 1;
+  }
+  return longest;
+}
+
+function windowFilter(days) {
+  if (days === null) return entries;
+  const cutoff = Date.now() - days * 24 * 60 * 60 * 1000;
+  return entries.filter(e => new Date(e.date).getTime() >= cutoff);
+}
+
+function topCounts(arr, field, n) {
+  const counts = new Map();
+  arr.forEach(e => {
+    const v = e[field];
+    if (!v) return;
+    if (!counts.has(v)) counts.set(v, { label: v, count: 0, color: e.color });
+    counts.get(v).count += 1;
+  });
+  return Array.from(counts.values()).sort((a,b) => b.count - a.count).slice(0, n);
+}
+
+function mostCommonPath(arr) {
+  const counts = new Map();
+  arr.forEach(e => {
+    const label = [e.coreLabel, e.middle, e.outer].filter(Boolean).join(" \u00b7 ");
+    if (!counts.has(label)) counts.set(label, { label, count: 0 });
+    counts.get(label).count += 1;
+  });
+  const list = Array.from(counts.values()).sort((a,b) => b.count - a.count);
+  return list[0] || null;
+}
+
+function fmtDate(iso) { return new Date(iso).toLocaleDateString(undefined, { weekday: "short", day: "numeric", month: "short" }); }
+function fmtTime(iso) { return new Date(iso).toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" }); }
+
+function saveEntry(coreData, middleLabel, outerLabel) {
+  const entry = {
+    id: Date.now() + "-" + Math.random().toString(36).slice(2, 7),
+    date: new Date().toISOString(),
+    coreKey: coreData.key, coreLabel: coreData.label, color: coreData.color, textColor: coreData.text,
+    middle: middleLabel || null, outer: outerLabel || null,
+  };
+  entries.unshift(entry);
+  persist();
+  justSaved = entry; core = null; middle = null;
+  render();
+}
+
+function deleteEntry(id) { entries = entries.filter(e => e.id !== id); persist(); render(); }
+
+function escapeHtml(str) { const d = document.createElement("div"); d.textContent = str; return d.innerHTML; }
+
+function renderHeader() {
+  document.getElementById("todayDate").textContent = new Date().toLocaleDateString(undefined, { weekday: "long", day: "numeric", month: "long" });
+  const streak = computeStreak();
+  document.getElementById("streakBox").innerHTML = streak > 0
+    ? '<div class="num">' + streak + '</div><div class="label">day' + (streak === 1 ? "" : "s") + ' in a row</div>' : "";
+}
+
+function renderCheckin() {
+  const el = document.getElementById("bodyEl");
+  if (justSaved) {
+    el.innerHTML =
+      '<div class="saved"><div class="checkmark" style="background:' + justSaved.color + ';color:' + justSaved.textColor + '">&#10003;</div>' +
+      '<p class="small">Logged</p><p class="path">' + escapeHtml([justSaved.coreLabel, justSaved.middle, justSaved.outer].filter(Boolean).join(" \u00b7 ")) + '</p>' +
+      '<button class="again-btn" id="againBtn">Add another</button></div>';
+    document.getElementById("againBtn").onclick = () => { justSaved = null; render(); };
+    return;
+  }
+  if (!core) {
+    let html = '<p class="hint">Start with the closest broad feeling.</p><div class="grid2">';
+    WHEEL.forEach((c,i) => { html += '<button class="core-btn" data-i="' + i + '" style="background:' + c.color + ';color:' + c.text + '">' + c.label + '</button>'; });
+    html += '</div><button class="link-btn" id="skipBtn" style="margin-top:12px">Not sure yet \u2014 just log a check-in</button>';
+    el.innerHTML = html;
+    el.querySelectorAll(".core-btn").forEach(btn => { btn.onclick = () => { core = WHEEL[+btn.dataset.i]; render(); }; });
+    document.getElementById("skipBtn").onclick = () => saveEntry({ key: "unlabeled", label: "Not sure", color: "#5F5E5A", text: "#F1EFE8" }, null, null);
+    return;
+  }
+  if (!middle) {
+    let html = '<div class="crumbs"><button id="backCore">' + escapeHtml(core.label) + '</button><span>&rsaquo;</span><span>a bit more specific</span></div><div class="pillwrap">';
+    Object.keys(core.middles).forEach(m => { html += '<button class="pill" data-m="' + escapeHtml(m) + '">' + escapeHtml(m) + '</button>'; });
+    html += '</div><button class="link-btn" id="saveMidLevel">Good enough \u2014 save as ' + escapeHtml(core.label) + '</button>';
+    el.innerHTML = html;
+    document.getElementById("backCore").onclick = () => { core = null; render(); };
+    el.querySelectorAll(".pill").forEach(btn => { btn.onclick = () => { middle = btn.dataset.m; render(); }; });
+    document.getElementById("saveMidLevel").onclick = () => saveEntry(core, null, null);
+    return;
+  }
+  let html = '<div class="crumbs"><button id="backCore2">' + escapeHtml(core.label) + '</button><span>&rsaquo;</span>' +
+    '<button id="backMid">' + escapeHtml(middle) + '</button><span>&rsaquo;</span><span>most precise</span></div><div class="pillwrap">';
+  core.middles[middle].forEach(o => { html += '<button class="pill" data-o="' + escapeHtml(o) + '">' + escapeHtml(o) + '</button>'; });
+  html += '</div><button class="link-btn" id="saveOuterLevel">Good enough \u2014 save as ' + escapeHtml(middle) + '</button>';
+  el.innerHTML = html;
+  document.getElementById("backCore2").onclick = () => { core = null; middle = null; render(); };
+  document.getElementById("backMid").onclick = () => { middle = null; render(); };
+  el.querySelectorAll(".pill").forEach(btn => { btn.onclick = () => saveEntry(core, middle, btn.dataset.o); });
+  document.getElementById("saveOuterLevel").onclick = () => saveEntry(core, middle, null);
+}
+
+function renderHistory() {
+  const el = document.getElementById("bodyEl");
+  if (entries.length === 0) { el.innerHTML = '<p class="empty">No check-ins yet. Log your first one on the Check in tab.</p>'; return; }
+
+  const last30 = windowFilter(30);
+  const counts = {}; WHEEL.forEach(c => counts[c.key] = 0);
+  last30.forEach(e => { if (counts[e.coreKey] !== undefined) counts[e.coreKey] += 1; });
+  const maxCount = Math.max(1, ...Object.values(counts));
+
+  let html = '<p class="day-label">Last 30 days</p><div class="bars">';
+  WHEEL.forEach(c => {
+    const h = counts[c.key] > 0 ? (counts[c.key] / maxCount) * 40 + 4 : 0;
+    html += '<div class="bar-col"><div class="bar" style="height:' + h + 'px;background:' + c.color + '"></div><span class="bar-count">' + counts[c.key] + '</span></div>';
+  });
+  html += '</div><div class="history-scroll">';
+
+  let lastKey = null;
+  entries.forEach(e => {
+    const key = dayKey(e.date);
+    if (key !== lastKey) { html += '<p class="day-label" style="margin-top:14px">' + fmtDate(e.date) + '</p>'; lastKey = key; }
+    html += '<div class="entry-row"><div class="entry-left"><span class="dot" style="background:' + e.color + '"></span>' +
+      '<span class="entry-text">' + escapeHtml([e.coreLabel, e.middle, e.outer].filter(Boolean).join(" \u00b7 ")) + '</span></div>' +
+      '<div class="entry-right"><span class="entry-time">' + fmtTime(e.date) + '</span>' +
+      '<button class="del-btn" data-id="' + e.id + '" aria-label="Delete entry">&#10005;</button></div></div>';
+  });
+  html += '</div>';
+  el.innerHTML = html;
+  el.querySelectorAll(".del-btn").forEach(btn => { btn.onclick = () => deleteEntry(btn.dataset.id); });
+}
+
+function renderInsights() {
+  const el = document.getElementById("bodyEl");
+  if (entries.length === 0) { el.innerHTML = '<p class="empty">No check-ins yet. Insights build up once you start logging.</p>'; return; }
+
+  const windowed = windowFilter(windowDays);
+  const longestStreak = computeLongestStreak();
+  const streak = computeStreak();
+  const precisionRate = windowed.length ? Math.round((windowed.filter(e => e.outer).length / windowed.length) * 100) : 0;
+
+  let html = '<div class="stat-grid">';
+  [["Check-ins", entries.length], ["Streak", streak], ["Best streak", longestStreak], ["To specifics", precisionRate + "%"]].forEach(([label, val]) => {
+    html += '<div class="stat-card"><div class="stat-val">' + val + '</div><div class="stat-label">' + label + '</div></div>';
+  });
+  html += '</div><div class="win-row">';
+  WINDOWS.forEach(w => { html += '<button class="win-btn' + (windowDays === w.days ? ' active' : '') + '" data-days="' + w.days + '">' + w.label + '</button>'; });
+  html += '</div>';
+
+  const counts = {}; WHEEL.forEach(c => counts[c.key] = 0);
+  windowed.forEach(e => { if (counts[e.coreKey] !== undefined) counts[e.coreKey] += 1; });
+  const total = windowed.length || 1;
+  const dist = WHEEL.map(c => ({ ...c, count: counts[c.key], pct: Math.round((counts[c.key] / total) * 100) })).sort((a,b) => b.count - a.count);
+
+  html += '<p class="day-label">How you\u2019ve been feeling</p>';
+  dist.forEach(c => {
+    html += '<div class="dist-row"><span class="dist-label">' + c.label + '</span>' +
+      '<div class="dist-track"><div class="dist-fill" style="width:' + c.pct + '%;background:' + c.color + '"></div></div>' +
+      '<span class="dist-num">' + c.count + ' \u00b7 ' + c.pct + '%</span></div>';
+  });
+
+  const topPath = mostCommonPath(windowed);
+  if (topPath) {
+    html += '<div class="highlight-card"><p class="day-label" style="margin:0">Most named feeling</p>' +
+      '<p style="font-size:14px;margin:4px 0 0">' + escapeHtml(topPath.label) + ' <span style="color:var(--faint)">\u00b7 ' + topPath.count + '\u00d7</span></p></div>';
+  }
+
+  const topMiddles = topCounts(windowed, "middle", 5);
+  const topOuters = topCounts(windowed, "outer", 5);
+  html += '<div class="two-col"><div><p class="day-label">Top mid-level</p>';
+  if (topMiddles.length === 0) html += '<p style="font-size:12px;color:var(--faint)">None yet</p>';
+  topMiddles.forEach(m => { html += '<div class="word-row"><span class="dot" style="background:' + m.color + '"></span><span>' + escapeHtml(m.label) + '</span><span>' + m.count + '</span></div>'; });
+  html += '</div><div><p class="day-label">Top specific words</p>';
+  if (topOuters.length === 0) html += '<p style="font-size:12px;color:var(--faint)">None yet</p>';
+  topOuters.forEach(o => { html += '<div class="word-row"><span class="dot" style="background:' + o.color + '"></span><span>' + escapeHtml(o.label) + '</span><span>' + o.count + '</span></div>'; });
+  html += '</div></div>';
+
+  const now = Date.now();
+  const thisWeek = entries.filter(e => now - new Date(e.date).getTime() < 7 * 86400000);
+  const lastWeek = entries.filter(e => { const diff = now - new Date(e.date).getTime(); return diff >= 7*86400000 && diff < 14*86400000; });
+  const countBy = (arr) => { const c = {}; WHEEL.forEach(w => c[w.key] = 0); arr.forEach(e => { if (c[e.coreKey] !== undefined) c[e.coreKey] += 1; }); return c; };
+  const t = countBy(thisWeek), l = countBy(lastWeek);
+  const wow = WHEEL.map(c => ({ ...c, tw: t[c.key], lw: l[c.key], delta: t[c.key] - l[c.key] })).filter(c => c.tw > 0 || c.lw > 0).sort((a,b) => b.tw - a.tw);
+  if (wow.length > 0) {
+    html += '<p class="day-label">This week vs last week</p>';
+    wow.forEach(c => {
+      const color = c.delta > 0 ? "#C2564B" : c.delta < 0 ? "#7FA084" : "var(--faint)";
+      html += '<div class="wow-row"><span class="left"><span class="dot" style="background:' + c.color + '"></span>' + c.label + '</span>' +
+        '<span style="color:var(--muted)">' + c.lw + ' &rarr; ' + c.tw + ' <span style="color:' + color + '">(' + (c.delta > 0 ? "+" : "") + c.delta + ')</span></span></div>';
+    });
+  }
+
+  el.innerHTML = html;
+  el.querySelectorAll(".win-btn").forEach(btn => {
+    btn.onclick = () => { windowDays = btn.dataset.days === "null" ? null : Number(btn.dataset.days); render(); };
+  });
+}
+
+function render() {
+  renderHeader();
+  document.getElementById("tabCheckin").classList.toggle("active", tab === "checkin");
+  document.getElementById("tabHistory").classList.toggle("active", tab === "history");
+  document.getElementById("tabInsights").classList.toggle("active", tab === "insights");
+  if (tab === "checkin") renderCheckin();
+  else if (tab === "history") renderHistory();
+  else renderInsights();
+}
+
+document.getElementById("tabCheckin").onclick = () => { tab = "checkin"; justSaved = null; render(); };
+document.getElementById("tabHistory").onclick = () => { tab = "history"; render(); };
+document.getElementById("tabInsights").onclick = () => { tab = "insights"; render(); };
+
+render();
+</script>
+</body>
+</html>
