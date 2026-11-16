@@ -129,6 +129,9 @@
   .after-pill.better { color: var(--good); border-color: var(--good); }
   .after-pill.worse { color: var(--danger); border-color: var(--danger); }
   .del-btn.confirm { color: var(--danger); }
+  .hist-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+  .hist-head .day-label { margin: 0; }
+  .copy-btn { padding: 4px 10px; border-radius: 999px; font-size: 12px; border: 1px solid var(--border-strong); background: var(--surface); color: var(--text); cursor: pointer; }
   .section-title { font-family: Georgia, serif; font-size: 15px; margin: 24px 0 4px; }
   .section-note { font-size: 12px; color: var(--faint); margin: 0 0 10px; }
   .pat-row { background: var(--surface); border-radius: 8px; padding: 8px 12px; margin-bottom: 6px; }
@@ -574,6 +577,40 @@ function abcCardHtml(e) {
   return html + '</div>';
 }
 
+function exportText() {
+  const stamp = iso => new Date(iso).toLocaleDateString(undefined, { weekday: "short", day: "numeric", month: "short", year: "numeric" }) + ", " + fmtTime(iso);
+  const lines = ["Feelings check-in \u2014 " + entries.length + (entries.length === 1 ? " entry" : " entries") + ", exported " + stamp(new Date().toISOString()), ""];
+  entries.forEach(e => {
+    const a = e.antecedent || {}, b = e.behaviour || {}, c = e.consequence || {}, r = e.reflection || {};
+    const after = AFTER.find(x => x.key === c.after);
+    lines.push(stamp(e.date));
+    if (a.what) lines.push("Antecedent: " + a.what);
+    if ((a.who || []).length) lines.push("Who: " + a.who.join(", "));
+    if (a.where) lines.push("Where: " + a.where);
+    lines.push("Feeling: " + pathLabel(e) + (e.intensity ? " (" + e.intensity + "/10)" : ""));
+    if (r.first) lines.push("First chose: " + r.first + " (changed after reflection)");
+    if (b.what || (b.tags || []).length) lines.push("Behaviour: " + [b.what, (b.tags || []).length ? "[" + b.tags.join(", ") + "]" : ""].filter(Boolean).join(" "));
+    if (c.what) lines.push("Consequence: " + c.what);
+    if (after) lines.push("Afterwards: " + after.label.toLowerCase());
+    lines.push("");
+  });
+  return lines.join("\n").trim() + "\n";
+}
+
+function copyText(text) {
+  const fallback = () => new Promise((resolve, reject) => {
+    const ta = document.createElement("textarea");
+    ta.value = text; ta.setAttribute("readonly", ""); ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select();
+    let ok = false;
+    try { ok = document.execCommand("copy"); } catch (err) { ok = false; }
+    document.body.removeChild(ta);
+    ok ? resolve() : reject(new Error("copy failed"));
+  });
+  if (navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(text).catch(fallback);
+  return fallback();
+}
+
 function renderHistory() {
   const el = document.getElementById("bodyEl");
   if (entries.length === 0) { el.innerHTML = '<p class="empty">No check-ins yet. Log your first one on the Check in tab.</p>'; return; }
@@ -585,7 +622,7 @@ function renderHistory() {
   last30.forEach(e => { if (counts[e.coreKey] !== undefined) counts[e.coreKey] += 1; });
   const maxCount = Math.max(1, ...Object.values(counts));
 
-  let html = '<p class="day-label">Last 30 days</p><div class="bars">';
+  let html = '<div class="hist-head"><p class="day-label">Last 30 days</p><button class="copy-btn" id="copyAllBtn">Copy all ' + entries.length + (entries.length === 1 ? ' entry' : ' entries') + '</button></div><div class="bars">';
   WHEEL.forEach(c => {
     const h = counts[c.key] > 0 ? (counts[c.key] / maxCount) * 40 + 4 : 0;
     html += '<div class="bar-col" title="' + c.label + '"><div class="bar" style="height:' + h + 'px;background:' + c.color + '"></div><span class="bar-count">' + counts[c.key] + '</span></div>';
@@ -601,6 +638,12 @@ function renderHistory() {
   html += '</div>';
   el.innerHTML = html;
   el.querySelector(".history-scroll").scrollTop = scrollTop;
+  const copyBtn = el.querySelector("#copyAllBtn");
+  copyBtn.onclick = () => {
+    const label = copyBtn.textContent;
+    copyText(exportText()).then(() => { copyBtn.textContent = "Copied \u2713"; }, () => { copyBtn.textContent = "Couldn\u2019t copy"; })
+      .then(() => { setTimeout(() => { copyBtn.textContent = label; }, 1800); });
+  };
   el.querySelectorAll(".del-btn").forEach(btn => {
     btn.onclick = () => { if (pendingDelete === btn.dataset.id) deleteEntry(btn.dataset.id); else { pendingDelete = btn.dataset.id; render(); } };
   });
