@@ -65,7 +65,7 @@
   .entry-time { font-size: 11px; color: var(--muted); }
   .del-btn { background: none; border: none; color: var(--faint); cursor: pointer; font-size: 12px; }
   .empty { font-size: 13px; color: var(--muted); text-align: center; padding: 40px 0; }
-  .history-scroll { max-height: 320px; overflow-y: auto; padding-right: 2px; }
+  .history-scroll { max-height: 460px; overflow-y: auto; padding-right: 2px; }
   .error { font-size: 12px; color: var(--danger); margin-top: 12px; }
   .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 16px; }
   .stat-card { background: var(--surface); border-radius: 8px; padding: 10px 6px; text-align: center; }
@@ -87,6 +87,58 @@
   .word-row span:nth-child(3) { color: var(--faint); }
   .wow-row { display: flex; align-items: center; justify-content: space-between; font-size: 12px; padding: 4px 0; }
   .wow-row .left { display: flex; align-items: center; gap: 6px; }
+
+  .steps { display: flex; gap: 4px; margin-bottom: 14px; }
+  .steps span { flex: 1; height: 3px; border-radius: 3px; background: var(--border-strong); }
+  .steps span.on { background: var(--accent); }
+  .step-kicker { font-size: 11px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; margin: 0 0 4px; }
+  .step-title { font-family: Georgia, serif; font-size: 17px; font-weight: 400; margin: 0 0 14px; }
+  .field-label { display: block; font-size: 12px; color: var(--muted); margin: 14px 0 6px; }
+  textarea, input[type=text] { width: 100%; background: var(--surface); border: 1px solid var(--border-strong); border-radius: 10px; color: var(--text); font: inherit; font-size: 14px; padding: 10px 12px; }
+  textarea { min-height: 84px; resize: vertical; line-height: 1.4; }
+  textarea:focus, input[type=text]:focus { outline: none; border-color: var(--accent); }
+  textarea::placeholder, input::placeholder { color: var(--faint); }
+  .chipwrap { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { border-radius: 999px; padding: 5px 11px; font-size: 13px; background: var(--surface); border: 1px solid var(--border-strong); color: var(--text); cursor: pointer; }
+  .chip.on { background: var(--accent); border-color: var(--accent); color: #2A1518; }
+  .chip-input { margin-top: 6px; padding: 7px 12px !important; font-size: 13px !important; }
+  .nav-row { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; }
+  .btn-primary { padding: 9px 18px; border-radius: 999px; border: none; background: var(--accent); color: #2A1518; font-size: 14px; cursor: pointer; }
+  .btn-ghost { padding: 9px 16px; border-radius: 999px; border: 1px solid var(--border-strong); background: none; color: var(--text); font-size: 14px; cursor: pointer; }
+  .chosen { display: flex; align-items: center; justify-content: space-between; gap: 8px; border-radius: 12px; padding: 12px 14px; font-size: 15px; }
+  .chosen button { background: none; border: none; font-size: 12px; text-decoration: underline; cursor: pointer; color: inherit; opacity: 0.8; padding: 0; }
+  .intensity-row { display: flex; align-items: center; gap: 12px; }
+  .intensity-row input[type=range] { flex: 1; accent-color: var(--accent); }
+  .intensity-val { font-size: 18px; color: var(--accent); width: 52px; text-align: right; }
+  .intensity-ends { display: flex; justify-content: space-between; font-size: 11px; color: var(--faint); margin-top: 2px; padding-right: 64px; }
+  .reflect { padding: 8px 0; }
+  .reflect-quote { font-family: Georgia, serif; font-size: 18px; line-height: 1.5; margin: 0 0 20px; }
+  .reflect-quote .fw { border-bottom: 2px solid; padding-bottom: 1px; }
+  .reflect-quote .int { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; font-size: 12px; color: var(--muted); }
+  .reflect-ask { font-size: 14px; color: var(--muted); margin: 0 0 10px; }
+  .reflect-btns { display: flex; flex-wrap: wrap; gap: 8px; }
+  .abc { background: var(--surface); border-radius: 10px; padding: 10px 12px; margin-bottom: 8px; }
+  .abc-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+  .abc-row { display: grid; grid-template-columns: 18px 1fr; gap: 8px; font-size: 13px; line-height: 1.4; padding: 3px 0; }
+  .abc-row + .abc-row { border-top: 1px dashed var(--border-strong); margin-top: 3px; padding-top: 6px; }
+  .abc-key { font-size: 11px; color: var(--faint); font-weight: 600; padding-top: 1px; }
+  .abc-key .dot { display: inline-block; margin-top: 5px; }
+  .abc-text { overflow-wrap: anywhere; }
+  .abc-meta { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .after-pill { display: inline-block; font-size: 11px; border-radius: 999px; padding: 1px 8px; border: 1px solid var(--border-strong); color: var(--muted); }
+  .after-pill.better { color: var(--good); border-color: var(--good); }
+  .after-pill.worse { color: var(--danger); border-color: var(--danger); }
+  .del-btn.confirm { color: var(--danger); }
+  .section-title { font-family: Georgia, serif; font-size: 15px; margin: 24px 0 4px; }
+  .section-note { font-size: 12px; color: var(--faint); margin: 0 0 10px; }
+  .pat-row { background: var(--surface); border-radius: 8px; padding: 8px 12px; margin-bottom: 6px; }
+  .pat-head { display: flex; justify-content: space-between; font-size: 13px; gap: 8px; }
+  .pat-head span:first-child { overflow-wrap: anywhere; }
+  .pat-head .n { color: var(--faint); flex-shrink: 0; }
+  .pat-sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .pat-sub .dot { display: inline-block; width: 6px; height: 6px; margin-right: 4px; vertical-align: middle; }
+  .stack { display: flex; height: 6px; border-radius: 999px; overflow: hidden; margin-top: 6px; background: var(--bg); gap: 1px; }
+  .stack div { height: 100%; }
 </style>
 </head>
 <body>
@@ -129,22 +181,44 @@ const WHEEL = [
     middles: { Lonely: ["Isolated","Abandoned"], Vulnerable: ["Victimised","Fragile"], Despair: ["Grief","Powerless"],
       Guilty: ["Ashamed","Remorseful"], Depressed: ["Empty","Inferior"], Hurt: ["Disappointed","Embarrassed"] } },
 ];
+const UNSURE = { key: "unlabeled", label: "Not sure", color: "#5F5E5A", text: "#F1EFE8" };
+const WHO = ["Alone", "Partner", "Family", "Friends", "Colleagues", "Strangers"];
+const WHERE = ["Home", "Work", "School", "Outside", "Online", "In transit"];
+const DID = ["Spoke up", "Stayed quiet", "Withdrew", "Argued", "Asked for help", "Distracted myself", "Cried", "Took a break", "Carried on"];
+const AFTER = [ { key: "better", label: "Better" }, { key: "same", label: "About the same" }, { key: "worse", label: "Worse" } ];
+const STEP_TITLES = [
+  ["Antecedent", "What happened just before?"],
+  ["Feeling", "What did you feel?"],
+  ["Behaviour", "What did you do or say?"],
+  ["Consequence", "What happened next?"],
+];
 
 const STORAGE_KEY = "feelings-checkin-entries";
 const WINDOWS = [ { label: "7d", days: 7 }, { label: "30d", days: 30 }, { label: "90d", days: 90 }, { label: "All", days: null } ];
 
 let entries = [];
 try { entries = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"); } catch (e) { entries = []; }
+if (!Array.isArray(entries)) entries = [];
+
+function newDraft() {
+  return { what: "", who: [], whoOther: "", where: "", whereOther: "", feeling: null, intensity: 5,
+           did: "", didTags: [], next: "", after: null };
+}
 
 let tab = "checkin";
-let core = null;
-let middle = null;
-let justSaved = null;
+let phase = "flow";            // flow | reflect | correct | done
+let step = 0;                  // 0..3 within the flow
+let draft = newDraft();
+let pick = { core: null, middle: null };      // wheel position while choosing
+let currentId = null;          // entry being reflected back
+let retried = false;
+let pendingDelete = null;
+let saveError = false;
 let windowDays = 30;
 
 function persist() {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(entries)); }
-  catch (e) { document.getElementById("bodyEl").insertAdjacentHTML("beforeend", '<p class="error">Could not save locally. Your browser storage may be full or blocked.</p>'); }
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(entries)); saveError = false; }
+  catch (e) { saveError = true; }
 }
 
 function dayKey(iso) { return new Date(iso).toDateString(); }
@@ -168,7 +242,7 @@ function computeLongestStreak() {
   const days = Array.from(daySet).sort((a,b) => a-b);
   let longest = 1, current = 1;
   for (let i = 1; i < days.length; i++) {
-    if (days[i] - days[i-1] === 86400000) { current += 1; longest = Math.max(longest, current); }
+    if (Math.round((days[i] - days[i-1]) / 86400000) === 1) { current += 1; longest = Math.max(longest, current); }
     else current = 1;
   }
   return longest;
@@ -191,10 +265,12 @@ function topCounts(arr, field, n) {
   return Array.from(counts.values()).sort((a,b) => b.count - a.count).slice(0, n);
 }
 
+function pathLabel(e) { return [e.coreLabel, e.middle, e.outer].filter(Boolean).join(" · "); }
+
 function mostCommonPath(arr) {
   const counts = new Map();
   arr.forEach(e => {
-    const label = [e.coreLabel, e.middle, e.outer].filter(Boolean).join(" \u00b7 ");
+    const label = pathLabel(e);
     if (!counts.has(label)) counts.set(label, { label, count: 0 });
     counts.get(label).count += 1;
   });
@@ -205,22 +281,82 @@ function mostCommonPath(arr) {
 function fmtDate(iso) { return new Date(iso).toLocaleDateString(undefined, { weekday: "short", day: "numeric", month: "short" }); }
 function fmtTime(iso) { return new Date(iso).toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" }); }
 
-function saveEntry(coreData, middleLabel, outerLabel) {
-  const entry = {
+function escapeHtml(str) {
+  return String(str).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
+
+function feelingFrom(coreData, middleLabel, outerLabel) {
+  return { coreKey: coreData.key, coreLabel: coreData.label, color: coreData.color, textColor: coreData.text,
+           middle: middleLabel || null, outer: outerLabel || null };
+}
+
+function currentEntry() { return entries.find(e => e.id === currentId) || null; }
+
+/* ---------- reflection of feelings ---------- */
+
+const LOWER_STARTS = new Set(("you your you're yours yourself the a an we our it there this that these those he she they his her their " +
+  "someone somebody nobody nothing everyone when while after before during at in on with got had was went having being getting " +
+  "woke saw heard read received found lost missed forgot tried").split(" "));
+
+// Turn her first-person words into second person so they can be said back to her.
+function reflectText(s, alwaysLower) {
+  let t = (s || "").trim().replace(/\s+/g, " ").replace(/[.!?,;:\s]+$/, "");
+  if (!t) return "";
+  [
+    [/\bI['’]m\b/gi, "you're"], [/\bI am\b/gi, "you are"], [/\bI was\b/gi, "you were"],
+    [/\bI['’]ve\b/gi, "you've"], [/\bI['’]d\b/gi, "you'd"], [/\bI['’]ll\b/gi, "you'll"],
+    [/\bmyself\b/gi, "yourself"], [/\bmine\b/gi, "yours"], [/\bmy\b/gi, "your"],
+    [/\bme\b/gi, "you"], [/\bI\b/gi, "you"],
+  ].forEach(([re, to]) => { t = t.replace(re, to); });
+  const first = t.split(" ")[0].toLowerCase();
+  if (alwaysLower || LOWER_STARTS.has(first)) t = t.charAt(0).toLowerCase() + t.slice(1);
+  return t;
+}
+
+function feelWord(e) {
+  if (e.coreKey === "unlabeled") return null;
+  return (e.outer || e.middle || e.coreLabel || "").toLowerCase();
+}
+
+function reflectionHtml(e) {
+  const word = feelWord(e);
+  let s = word
+    ? 'You felt <span class="fw" style="border-color:' + e.color + '">' + escapeHtml(word) + '</span>' +
+      (e.intensity ? ' <span class="int">(' + e.intensity + '/10)</span>' : '')
+    : 'You weren’t sure what you felt';
+  const a = reflectText(e.antecedent && e.antecedent.what, false);
+  const b = reflectText(e.behaviour && e.behaviour.what, true);
+  if (a) s += ' when ' + escapeHtml(a);
+  if (b) s += (a ? ', and ' : ' and ') + (/^you\b/i.test(b) ? '' : 'you ') + escapeHtml(b);
+  return s + '.';
+}
+
+/* ---------- saving ---------- */
+
+function saveEntry() {
+  const d = draft;
+  const who = d.who.slice();
+  if (d.whoOther.trim()) who.push(d.whoOther.trim());
+  const entry = Object.assign({
     id: Date.now() + "-" + Math.random().toString(36).slice(2, 7),
     date: new Date().toISOString(),
-    coreKey: coreData.key, coreLabel: coreData.label, color: coreData.color, textColor: coreData.text,
-    middle: middleLabel || null, outer: outerLabel || null,
-  };
+  }, d.feeling, {
+    intensity: d.feeling.coreKey === "unlabeled" ? null : d.intensity,
+    antecedent: { what: d.what.trim(), who: who, where: d.whereOther.trim() || d.where || null },
+    behaviour: { what: d.did.trim(), tags: d.didTags.slice() },
+    consequence: { what: d.next.trim(), after: d.after },
+    reflection: { fits: null, corrections: 0, first: null },
+  });
   entries.unshift(entry);
   persist();
-  justSaved = entry; core = null; middle = null;
+  currentId = entry.id; phase = "reflect"; retried = false;
+  draft = newDraft(); step = 0; pick = { core: null, middle: null };
   render();
 }
 
-function deleteEntry(id) { entries = entries.filter(e => e.id !== id); persist(); render(); }
+function deleteEntry(id) { entries = entries.filter(e => e.id !== id); pendingDelete = null; persist(); render(); }
 
-function escapeHtml(str) { const d = document.createElement("div"); d.textContent = str; return d.innerHTML; }
+/* ---------- header ---------- */
 
 function renderHeader() {
   document.getElementById("todayDate").textContent = new Date().toLocaleDateString(undefined, { weekday: "long", day: "numeric", month: "long" });
@@ -229,49 +365,220 @@ function renderHeader() {
     ? '<div class="num">' + streak + '</div><div class="label">day' + (streak === 1 ? "" : "s") + ' in a row</div>' : "";
 }
 
-function renderCheckin() {
-  const el = document.getElementById("bodyEl");
-  if (justSaved) {
-    el.innerHTML =
-      '<div class="saved"><div class="checkmark" style="background:' + justSaved.color + ';color:' + justSaved.textColor + '">&#10003;</div>' +
-      '<p class="small">Logged</p><p class="path">' + escapeHtml([justSaved.coreLabel, justSaved.middle, justSaved.outer].filter(Boolean).join(" \u00b7 ")) + '</p>' +
-      '<button class="again-btn" id="againBtn">Add another</button></div>';
-    document.getElementById("againBtn").onclick = () => { justSaved = null; render(); };
-    return;
-  }
-  if (!core) {
+/* ---------- feeling wheel (used for the check-in and for correcting the reflection) ---------- */
+
+function wheelHtml(p, allowUnsure) {
+  if (!p.core) {
     let html = '<p class="hint">Start with the closest broad feeling.</p><div class="grid2">';
     WHEEL.forEach((c,i) => { html += '<button class="core-btn" data-i="' + i + '" style="background:' + c.color + ';color:' + c.text + '">' + c.label + '</button>'; });
-    html += '</div><button class="link-btn" id="skipBtn" style="margin-top:12px">Not sure yet \u2014 just log a check-in</button>';
+    html += '</div>';
+    if (allowUnsure) html += '<button class="link-btn" data-w="unsure" style="margin-top:12px">Not sure yet — carry on without a word</button>';
+    return html;
+  }
+  if (!p.middle) {
+    let html = '<div class="crumbs"><button data-w="backCore">' + escapeHtml(p.core.label) + '</button><span>&rsaquo;</span><span>a bit more specific</span></div><div class="pillwrap">';
+    Object.keys(p.core.middles).forEach(m => { html += '<button class="pill" data-m="' + escapeHtml(m) + '">' + escapeHtml(m) + '</button>'; });
+    return html + '</div><button class="link-btn" data-w="good">Good enough — keep ' + escapeHtml(p.core.label) + '</button>';
+  }
+  let html = '<div class="crumbs"><button data-w="backCore">' + escapeHtml(p.core.label) + '</button><span>&rsaquo;</span>' +
+    '<button data-w="backMid">' + escapeHtml(p.middle) + '</button><span>&rsaquo;</span><span>most precise</span></div><div class="pillwrap">';
+  p.core.middles[p.middle].forEach(o => { html += '<button class="pill" data-o="' + escapeHtml(o) + '">' + escapeHtml(o) + '</button>'; });
+  return html + '</div><button class="link-btn" data-w="good">Good enough — keep ' + escapeHtml(p.middle) + '</button>';
+}
+
+function bindWheel(el, p, onPick) {
+  el.querySelectorAll(".core-btn").forEach(btn => { btn.onclick = () => { p.core = WHEEL[+btn.dataset.i]; render(); }; });
+  el.querySelectorAll("[data-m]").forEach(btn => { btn.onclick = () => { p.middle = btn.dataset.m; render(); }; });
+  el.querySelectorAll("[data-o]").forEach(btn => { btn.onclick = () => onPick(feelingFrom(p.core, p.middle, btn.dataset.o)); });
+  el.querySelectorAll("[data-w]").forEach(btn => {
+    const w = btn.dataset.w;
+    btn.onclick = () => {
+      if (w === "unsure") return onPick(feelingFrom(UNSURE, null, null));
+      if (w === "good") return onPick(feelingFrom(p.core, p.middle, null));
+      if (w === "backCore") { p.core = null; p.middle = null; }
+      if (w === "backMid") { p.middle = null; }
+      render();
+    };
+  });
+}
+
+/* ---------- check-in flow ---------- */
+
+function stepHead() {
+  let html = '<div class="steps">';
+  for (let i = 0; i < 4; i++) html += '<span' + (i <= step ? ' class="on"' : '') + '></span>';
+  return html + '</div><p class="step-kicker">' + (step + 1) + ' of 4 · ' + STEP_TITLES[step][0] + '</p>' +
+    '<h2 class="step-title">' + STEP_TITLES[step][1] + '</h2>';
+}
+
+function chipsHtml(options, selected, group) {
+  let html = '<div class="chipwrap">';
+  options.forEach((o, i) => {
+    const on = Array.isArray(selected) ? selected.includes(o.key || o) : selected === (o.key || o);
+    html += '<button class="chip' + (on ? ' on' : '') + '" data-g="' + group + '" data-i="' + i + '" aria-pressed="' + on + '">' + escapeHtml(o.label || o) + '</button>';
+  });
+  return html + '</div>';
+}
+
+function navHtml(nextLabel) {
+  return '<div class="nav-row">' + (step > 0 ? '<button class="btn-ghost" id="backBtn">Back</button>' : '<span></span>') +
+    (nextLabel ? '<button class="btn-primary" id="nextBtn">' + nextLabel + '</button>' : '') + '</div>';
+}
+
+function bindNav(el, onNext) {
+  const back = el.querySelector("#backBtn"), next = el.querySelector("#nextBtn");
+  if (back) back.onclick = () => { step -= 1; render(); };
+  if (next) next.onclick = onNext || (() => { step += 1; render(); });
+}
+
+function bindText(el, id, field) {
+  const node = el.querySelector("#" + id);
+  if (node) node.oninput = () => { draft[field] = node.value; };
+}
+
+function bindChips(el, group, options, field, multi) {
+  el.querySelectorAll('.chip[data-g="' + group + '"]').forEach(btn => {
+    btn.onclick = () => {
+      const o = options[+btn.dataset.i], v = o.key || o;
+      if (multi) draft[field] = draft[field].includes(v) ? draft[field].filter(x => x !== v) : draft[field].concat(v);
+      else draft[field] = draft[field] === v ? (field === "after" ? null : "") : v;
+      render();
+    };
+  });
+}
+
+function renderFlow(el) {
+  let html = stepHead();
+
+  if (step === 0) {
+    html += '<textarea id="fWhat" placeholder="e.g. My manager changed the deadline in the team meeting">' + escapeHtml(draft.what) + '</textarea>' +
+      '<label class="field-label">Who was there?</label>' + chipsHtml(WHO, draft.who, "who") +
+      '<input type="text" class="chip-input" id="fWhoOther" placeholder="Someone else…" maxlength="40" value="' + escapeHtml(draft.whoOther) + '">' +
+      '<label class="field-label">Where were you?</label>' + chipsHtml(WHERE, draft.where, "where") +
+      '<input type="text" class="chip-input" id="fWhereOther" placeholder="Somewhere else…" maxlength="40" value="' + escapeHtml(draft.whereOther) + '">' +
+      navHtml("Next");
     el.innerHTML = html;
-    el.querySelectorAll(".core-btn").forEach(btn => { btn.onclick = () => { core = WHEEL[+btn.dataset.i]; render(); }; });
-    document.getElementById("skipBtn").onclick = () => saveEntry({ key: "unlabeled", label: "Not sure", color: "#5F5E5A", text: "#F1EFE8" }, null, null);
+    bindText(el, "fWhat", "what"); bindText(el, "fWhoOther", "whoOther"); bindText(el, "fWhereOther", "whereOther");
+    bindChips(el, "who", WHO, "who", true); bindChips(el, "where", WHERE, "where", false);
+    bindNav(el);
     return;
   }
-  if (!middle) {
-    let html = '<div class="crumbs"><button id="backCore">' + escapeHtml(core.label) + '</button><span>&rsaquo;</span><span>a bit more specific</span></div><div class="pillwrap">';
-    Object.keys(core.middles).forEach(m => { html += '<button class="pill" data-m="' + escapeHtml(m) + '">' + escapeHtml(m) + '</button>'; });
-    html += '</div><button class="link-btn" id="saveMidLevel">Good enough \u2014 save as ' + escapeHtml(core.label) + '</button>';
+
+  if (step === 1) {
+    if (!draft.feeling) {
+      html += wheelHtml(pick, true) + navHtml(null);
+      el.innerHTML = html;
+      bindWheel(el, pick, f => { draft.feeling = f; render(); });
+      bindNav(el);
+      return;
+    }
+    const f = draft.feeling;
+    html += '<div class="chosen" style="background:' + f.color + ';color:' + f.textColor + '"><span>' + escapeHtml(pathLabel(f)) + '</span><button id="changeFeel">Change</button></div>';
+    if (f.coreKey !== "unlabeled") {
+      html += '<label class="field-label" for="fInt">How strong was it?</label>' +
+        '<div class="intensity-row"><input type="range" id="fInt" min="1" max="10" step="1" value="' + draft.intensity + '">' +
+        '<span class="intensity-val" id="fIntVal">' + draft.intensity + '/10</span></div>' +
+        '<div class="intensity-ends"><span>barely there</span><span>overwhelming</span></div>';
+    }
+    html += navHtml("Next");
     el.innerHTML = html;
-    document.getElementById("backCore").onclick = () => { core = null; render(); };
-    el.querySelectorAll(".pill").forEach(btn => { btn.onclick = () => { middle = btn.dataset.m; render(); }; });
-    document.getElementById("saveMidLevel").onclick = () => saveEntry(core, null, null);
+    el.querySelector("#changeFeel").onclick = () => { draft.feeling = null; pick = { core: null, middle: null }; render(); };
+    const r = el.querySelector("#fInt");
+    if (r) r.oninput = () => { draft.intensity = +r.value; el.querySelector("#fIntVal").textContent = r.value + "/10"; };
+    bindNav(el);
     return;
   }
-  let html = '<div class="crumbs"><button id="backCore2">' + escapeHtml(core.label) + '</button><span>&rsaquo;</span>' +
-    '<button id="backMid">' + escapeHtml(middle) + '</button><span>&rsaquo;</span><span>most precise</span></div><div class="pillwrap">';
-  core.middles[middle].forEach(o => { html += '<button class="pill" data-o="' + escapeHtml(o) + '">' + escapeHtml(o) + '</button>'; });
-  html += '</div><button class="link-btn" id="saveOuterLevel">Good enough \u2014 save as ' + escapeHtml(middle) + '</button>';
+
+  if (step === 2) {
+    html += '<textarea id="fDid" placeholder="e.g. Went quiet and left the meeting early">' + escapeHtml(draft.did) + '</textarea>' +
+      '<label class="field-label">Closest fit (optional — helps spot patterns)</label>' + chipsHtml(DID, draft.didTags, "did") +
+      navHtml("Next");
+    el.innerHTML = html;
+    bindText(el, "fDid", "did"); bindChips(el, "did", DID, "didTags", true);
+    bindNav(el);
+    return;
+  }
+
+  html += '<textarea id="fNext" placeholder="e.g. Nobody followed up, and I stayed late to catch up">' + escapeHtml(draft.next) + '</textarea>' +
+    '<label class="field-label">And how did you feel afterwards?</label>' + chipsHtml(AFTER, draft.after, "after") +
+    navHtml("Save");
   el.innerHTML = html;
-  document.getElementById("backCore2").onclick = () => { core = null; middle = null; render(); };
-  document.getElementById("backMid").onclick = () => { middle = null; render(); };
-  el.querySelectorAll(".pill").forEach(btn => { btn.onclick = () => saveEntry(core, middle, btn.dataset.o); });
-  document.getElementById("saveOuterLevel").onclick = () => saveEntry(core, middle, null);
+  bindText(el, "fNext", "next"); bindChips(el, "after", AFTER, "after", false);
+  bindNav(el, saveEntry);
+}
+
+function renderCheckin() {
+  const el = document.getElementById("bodyEl");
+  const e = phase === "flow" ? null : currentEntry();
+  if (phase !== "flow" && !e) { phase = "flow"; }
+
+  if (phase === "flow") { renderFlow(el); return; }
+
+  if (phase === "reflect") {
+    el.innerHTML = '<div class="reflect"><p class="step-kicker">' + (retried ? 'Let me try that again' : 'Saved · here’s what I heard') + '</p>' +
+      '<p class="reflect-quote">' + reflectionHtml(e) + '</p>' +
+      '<p class="reflect-ask">Does that fit?</p><div class="reflect-btns">' +
+      '<button class="btn-primary" id="fitsBtn">Yes, that fits</button>' +
+      '<button class="btn-ghost" id="notQuiteBtn">Not quite — change the feeling</button></div></div>';
+    el.querySelector("#fitsBtn").onclick = () => { e.reflection = Object.assign({ corrections: 0, first: null }, e.reflection, { fits: true }); persist(); phase = "done"; render(); };
+    el.querySelector("#notQuiteBtn").onclick = () => { phase = "correct"; pick = { core: null, middle: null }; render(); };
+    return;
+  }
+
+  if (phase === "correct") {
+    el.innerHTML = '<p class="step-kicker">Not quite</p><h2 class="step-title">Which word fits better?</h2>' + wheelHtml(pick, false) +
+      '<div class="nav-row"><button class="btn-ghost" id="keepBtn">Keep “' + escapeHtml(feelWord(e) || "not sure") + '”</button><span></span></div>';
+    bindWheel(el, pick, f => {
+      const r = Object.assign({ fits: null, corrections: 0, first: null }, e.reflection);
+      if (!r.first) r.first = pathLabel(e);
+      r.corrections += 1; r.fits = null;
+      Object.assign(e, f, { reflection: r });
+      if (!e.intensity) e.intensity = null;
+      persist(); phase = "reflect"; retried = true; pick = { core: null, middle: null }; render();
+    });
+    el.querySelector("#keepBtn").onclick = () => { phase = "reflect"; render(); };
+    return;
+  }
+
+  el.innerHTML =
+    '<div class="saved"><div class="checkmark" style="background:' + e.color + ';color:' + e.textColor + '">&#10003;</div>' +
+    '<p class="small">Logged</p><p class="path">' + escapeHtml(pathLabel(e)) + '</p>' +
+    '<button class="again-btn" id="againBtn">Add another</button></div>';
+  document.getElementById("againBtn").onclick = () => { phase = "flow"; currentId = null; render(); };
+}
+
+/* ---------- history ---------- */
+
+function abcCardHtml(e) {
+  const a = e.antecedent || {}, b = e.behaviour || {}, c = e.consequence || {};
+  const aMeta = [(a.who || []).join(", "), a.where].filter(Boolean).join(" · ");
+  const confirm = pendingDelete === e.id;
+  let html = '<div class="abc"><div class="abc-top"><span class="entry-time">' + fmtTime(e.date) + '</span>' +
+    '<button class="del-btn' + (confirm ? ' confirm' : '') + '" data-id="' + escapeHtml(e.id) + '" aria-label="Delete entry">' + (confirm ? 'Delete?' : '&#10005;') + '</button></div>';
+  if (a.what || aMeta) {
+    html += '<div class="abc-row"><span class="abc-key" title="Antecedent">A</span><div class="abc-text">' + escapeHtml(a.what || "") +
+      (aMeta ? '<div class="abc-meta">' + escapeHtml(aMeta) + '</div>' : '') + '</div></div>';
+  }
+  html += '<div class="abc-row"><span class="abc-key" title="Feeling"><span class="dot" style="background:' + e.color + '"></span></span><div class="abc-text">' +
+    escapeHtml(pathLabel(e)) + (e.intensity ? ' <span class="abc-meta" style="display:inline">· ' + e.intensity + '/10</span>' : '') + '</div></div>';
+  const bTags = (b.tags || []).join(", ");
+  if (b.what || bTags) {
+    html += '<div class="abc-row"><span class="abc-key" title="Behaviour">B</span><div class="abc-text">' + escapeHtml(b.what || "") +
+      (bTags ? '<div class="abc-meta">' + escapeHtml(bTags) + '</div>' : '') + '</div></div>';
+  }
+  const after = AFTER.find(x => x.key === c.after);
+  if (c.what || after) {
+    html += '<div class="abc-row"><span class="abc-key" title="Consequence">C</span><div class="abc-text">' + escapeHtml(c.what || "") +
+      (after ? '<div class="abc-meta"><span class="after-pill ' + after.key + '">Afterwards: ' + after.label.toLowerCase() + '</span></div>' : '') + '</div></div>';
+  }
+  return html + '</div>';
 }
 
 function renderHistory() {
   const el = document.getElementById("bodyEl");
   if (entries.length === 0) { el.innerHTML = '<p class="empty">No check-ins yet. Log your first one on the Check in tab.</p>'; return; }
+  const prev = el.querySelector(".history-scroll");
+  const scrollTop = prev ? prev.scrollTop : 0;
 
   const last30 = windowFilter(30);
   const counts = {}; WHEEL.forEach(c => counts[c.key] = 0);
@@ -281,7 +588,7 @@ function renderHistory() {
   let html = '<p class="day-label">Last 30 days</p><div class="bars">';
   WHEEL.forEach(c => {
     const h = counts[c.key] > 0 ? (counts[c.key] / maxCount) * 40 + 4 : 0;
-    html += '<div class="bar-col"><div class="bar" style="height:' + h + 'px;background:' + c.color + '"></div><span class="bar-count">' + counts[c.key] + '</span></div>';
+    html += '<div class="bar-col" title="' + c.label + '"><div class="bar" style="height:' + h + 'px;background:' + c.color + '"></div><span class="bar-count">' + counts[c.key] + '</span></div>';
   });
   html += '</div><div class="history-scroll">';
 
@@ -289,14 +596,75 @@ function renderHistory() {
   entries.forEach(e => {
     const key = dayKey(e.date);
     if (key !== lastKey) { html += '<p class="day-label" style="margin-top:14px">' + fmtDate(e.date) + '</p>'; lastKey = key; }
-    html += '<div class="entry-row"><div class="entry-left"><span class="dot" style="background:' + e.color + '"></span>' +
-      '<span class="entry-text">' + escapeHtml([e.coreLabel, e.middle, e.outer].filter(Boolean).join(" \u00b7 ")) + '</span></div>' +
-      '<div class="entry-right"><span class="entry-time">' + fmtTime(e.date) + '</span>' +
-      '<button class="del-btn" data-id="' + e.id + '" aria-label="Delete entry">&#10005;</button></div></div>';
+    html += abcCardHtml(e);
   });
   html += '</div>';
   el.innerHTML = html;
-  el.querySelectorAll(".del-btn").forEach(btn => { btn.onclick = () => deleteEntry(btn.dataset.id); });
+  el.querySelector(".history-scroll").scrollTop = scrollTop;
+  el.querySelectorAll(".del-btn").forEach(btn => {
+    btn.onclick = () => { if (pendingDelete === btn.dataset.id) deleteEntry(btn.dataset.id); else { pendingDelete = btn.dataset.id; render(); } };
+  });
+}
+
+/* ---------- insights ---------- */
+
+const STOPWORDS = new Set(("the and for that this with was were had has have are not but she her his him they them their there then than " +
+  "when what who how why you your our out about into from just got get did didn does doesn don didnt dont its it's i'm i've too very really " +
+  "again still been being some any all one two more most much many over under off onto after before while because said say says told tell " +
+  "asked ask went going come came back down up again also only even ever never always can could would should will wasn't couldn't didn't don't " +
+  "me my mine myself we us him he a an of to in on at is it as be by or so if no do am i").split(" "));
+
+function groupBy(arr, getKeys) {
+  const m = new Map();
+  arr.forEach(e => { new Set(getKeys(e)).forEach(k => { if (!m.has(k)) m.set(k, []); m.get(k).push(e); }); });
+  return Array.from(m.entries()).map(([label, list]) => ({ label, list })).filter(g => g.list.length >= 2)
+    .sort((a,b) => b.list.length - a.list.length);
+}
+
+function feelingsAfterHtml(list) {
+  const cores = topCounts(list, "coreLabel", 2);
+  const ints = list.map(e => e.intensity).filter(Boolean);
+  let s = cores.map(c => '<span class="dot" style="background:' + c.color + '"></span>' + escapeHtml(c.label) + ' ' + c.count).join(' &nbsp;·&nbsp; ');
+  if (ints.length) s += ' &nbsp;·&nbsp; avg ' + (ints.reduce((a,b) => a+b, 0) / ints.length).toFixed(1) + '/10';
+  return s;
+}
+
+function antecedentGroupHtml(title, groups) {
+  if (groups.length === 0) return "";
+  let html = '<p class="day-label" style="margin-top:12px">' + title + '</p>';
+  groups.slice(0, 4).forEach(g => {
+    html += '<div class="pat-row"><div class="pat-head"><span>' + escapeHtml(g.label) + '</span><span class="n">' + g.list.length + '×</span></div>' +
+      '<div class="pat-sub">' + feelingsAfterHtml(g.list) + '</div></div>';
+  });
+  return html;
+}
+
+function patternsHtml(windowed) {
+  const withA = windowed.filter(e => e.antecedent);
+  const who = groupBy(withA, e => e.antecedent.who || []);
+  const where = groupBy(withA, e => e.antecedent.where ? [e.antecedent.where] : []);
+  const words = groupBy(withA, e => ((e.antecedent.what || "").toLowerCase().match(/[a-zà-ɏ']+/g) || [])
+    .map(w => w.replace(/^'+|'+$/g, "")).filter(w => w.length >= 3 && !STOPWORDS.has(w)));
+
+  let html = '<p class="section-title">What tends to come before</p><p class="section-note">Recurring antecedents, and the feelings that followed them.</p>';
+  const aHtml = antecedentGroupHtml("Who was there", who) + antecedentGroupHtml("Where", where) + antecedentGroupHtml("Words that keep coming up", words);
+  html += aHtml || '<p class="section-note">Nothing has repeated yet. Patterns show up once a situation appears in two or more check-ins.</p>';
+
+  const withB = windowed.filter(e => e.behaviour && (e.behaviour.tags || []).length && e.consequence && e.consequence.after);
+  const did = groupBy(withB, e => e.behaviour.tags);
+  html += '<p class="section-title">What you did, and how it left you</p><p class="section-note">How you felt afterwards, by behaviour.</p>';
+  if (did.length === 0) {
+    html += '<p class="section-note">Nothing has repeated yet. Pick a “closest fit” for what you did and how you felt afterwards to build this up.</p>';
+  }
+  const colors = { better: "var(--good)", same: "var(--faint)", worse: "var(--danger)" };
+  did.slice(0, 6).forEach(g => {
+    const n = { better: 0, same: 0, worse: 0 };
+    g.list.forEach(e => { if (n[e.consequence.after] !== undefined) n[e.consequence.after] += 1; });
+    html += '<div class="pat-row"><div class="pat-head"><span>' + escapeHtml(g.label) + '</span><span class="n">' + g.list.length + '×</span></div><div class="stack">';
+    ["better", "same", "worse"].forEach(k => { if (n[k]) html += '<div style="flex:' + n[k] + ';background:' + colors[k] + '"></div>'; });
+    html += '</div><div class="pat-sub">' + ["better", "same", "worse"].filter(k => n[k]).map(k => n[k] + ' ' + k).join(' · ') + '</div></div>';
+  });
+  return html;
 }
 
 function renderInsights() {
@@ -321,22 +689,24 @@ function renderInsights() {
   const total = windowed.length || 1;
   const dist = WHEEL.map(c => ({ ...c, count: counts[c.key], pct: Math.round((counts[c.key] / total) * 100) })).sort((a,b) => b.count - a.count);
 
-  html += '<p class="day-label">How you\u2019ve been feeling</p>';
+  html += '<p class="day-label">How you’ve been feeling</p>';
   dist.forEach(c => {
     html += '<div class="dist-row"><span class="dist-label">' + c.label + '</span>' +
       '<div class="dist-track"><div class="dist-fill" style="width:' + c.pct + '%;background:' + c.color + '"></div></div>' +
-      '<span class="dist-num">' + c.count + ' \u00b7 ' + c.pct + '%</span></div>';
+      '<span class="dist-num">' + c.count + ' · ' + c.pct + '%</span></div>';
   });
 
   const topPath = mostCommonPath(windowed);
   if (topPath) {
-    html += '<div class="highlight-card"><p class="day-label" style="margin:0">Most named feeling</p>' +
-      '<p style="font-size:14px;margin:4px 0 0">' + escapeHtml(topPath.label) + ' <span style="color:var(--faint)">\u00b7 ' + topPath.count + '\u00d7</span></p></div>';
+    html += '<div class="highlight-card" style="margin-top:12px;margin-bottom:0"><p class="day-label" style="margin:0">Most named feeling</p>' +
+      '<p style="font-size:14px;margin:4px 0 0">' + escapeHtml(topPath.label) + ' <span style="color:var(--faint)">· ' + topPath.count + '×</span></p></div>';
   }
+
+  html += patternsHtml(windowed);
 
   const topMiddles = topCounts(windowed, "middle", 5);
   const topOuters = topCounts(windowed, "outer", 5);
-  html += '<div class="two-col"><div><p class="day-label">Top mid-level</p>';
+  html += '<p class="section-title">Words you reach for</p><div class="two-col" style="margin-top:8px"><div><p class="day-label">Top mid-level</p>';
   if (topMiddles.length === 0) html += '<p style="font-size:12px;color:var(--faint)">None yet</p>';
   topMiddles.forEach(m => { html += '<div class="word-row"><span class="dot" style="background:' + m.color + '"></span><span>' + escapeHtml(m.label) + '</span><span>' + m.count + '</span></div>'; });
   html += '</div><div><p class="day-label">Top specific words</p>';
@@ -373,10 +743,11 @@ function render() {
   if (tab === "checkin") renderCheckin();
   else if (tab === "history") renderHistory();
   else renderInsights();
+  if (saveError) document.getElementById("bodyEl").insertAdjacentHTML("beforeend", '<p class="error">Could not save locally. Your browser storage may be full or blocked.</p>');
 }
 
-document.getElementById("tabCheckin").onclick = () => { tab = "checkin"; justSaved = null; render(); };
-document.getElementById("tabHistory").onclick = () => { tab = "history"; render(); };
+document.getElementById("tabCheckin").onclick = () => { tab = "checkin"; if (phase === "done") { phase = "flow"; currentId = null; } render(); };
+document.getElementById("tabHistory").onclick = () => { tab = "history"; pendingDelete = null; render(); };
 document.getElementById("tabInsights").onclick = () => { tab = "insights"; render(); };
 
 render();
